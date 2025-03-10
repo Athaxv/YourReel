@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
+import Provider from "./provider";
 
-const poppins = Poppins({ subsets: ['latin'] })
+const poppins = Poppins({ subsets: ['latin'], weight: ['400'] })
 
 export const metadata = {
   title: "Create Next App",
@@ -10,11 +11,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
         className={poppins.className}
       >
+        <Provider>
         {children}
+        </Provider>
       </body>
     </html>
   );
