@@ -10,9 +10,7 @@ function Provider({ children }) {
     enableSystem
     disableTransitionOnChange
         >
-        <div>
             {children}
-        </div>
     </NextThemesProvider>
   )
 }
