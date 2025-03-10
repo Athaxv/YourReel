@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
-import Provider from "./provider";
+import Provider from "./Provider";
+import { ClerkProvider } from "@clerk/nextjs/dist/types/components.server";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400'] })
 
@@ -11,6 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
     <html lang="en" suppressHydrationWarning={true}>
       <body
         className={poppins.className}
@@ -20,5 +22,6 @@ export default function RootLayout({ children }) {
         </Provider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
