@@ -1,8 +1,12 @@
-"use client"
 import React from 'react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { auth, currentUser } from '@clerk/nextjs/server'
 
-function Provider({ children }) {
+async function Provider({ children }) {
+  // const { userId } = await auth()
+  const user = await currentUser()
+  console.log("Registered user:", user)
+
   return (
     <NextThemesProvider
     attribute="class"

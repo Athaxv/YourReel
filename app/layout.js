@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Provider from "./Provider";
-import { ClerkProvider } from "@clerk/nextjs/dist/types/components.server";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400'] })
 
