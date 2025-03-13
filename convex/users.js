@@ -7,7 +7,7 @@ export const CreatenewUser = mutation({
         email: v.string(),
         pictureURL: v.string()
     },
-    handler: async(ctx, args)=> {
+    handler: async (ctx, args)=> {
         const user = await ctx.db.query('users')
         .filter((q) => q.eq(q.field('email'), args.email))
         .collect();

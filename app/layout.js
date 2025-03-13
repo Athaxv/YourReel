@@ -19,7 +19,9 @@ export default function RootLayout({ children }) {
         className={poppins.className}
       >
         <ConvexClientProvider>
+          <Provider>
         {children}
+        </Provider>
         </ConvexClientProvider>
       </body>
     </html>
