@@ -24,6 +24,7 @@ function Provider({ children }) {
             pictureURL: user.imageUrl, // Fixed incorrect property
           });
           console.log("User created:", result);
+          setUser(result);
         } catch (error) {
           console.error("Error creating user:", error);
         }

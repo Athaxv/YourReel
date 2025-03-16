@@ -10,6 +10,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
   } from "@/components/ui/sidebar"
+import { api } from "@/convex/_generated/api"
+import { useUser } from "@clerk/nextjs"
+import { useMutation, useQuery } from "convex/react"
 import { Gem, HomeIcon, LucideFileVideo, Search, WalletCards } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -39,6 +42,10 @@ import { usePathname } from "next/navigation"
   ]
 
   export function AppSidebar() {
+    const {user} = useUser();
+    const createUser = useMutation(api.users.CreatenewUser);
+    console.log(createUser)
+
     const path = usePathname();
     return (
       <Sidebar>
@@ -54,7 +61,9 @@ import { usePathname } from "next/navigation"
         <SidebarContent>
           <SidebarGroup>
             <div className=" mt-1">
+              <Link href={'/create-new-video'}>
                 <Button className="w-full font-bold">+Create New Video</Button>
+                </Link>
             </div>
             <SidebarMenu>
                 {MenuItems.map((menu, index) => (
@@ -79,7 +88,7 @@ import { usePathname } from "next/navigation"
             <div className="p-5 border rounded-lg mb-6 bg-gray-800">
                 <div className="flex items-center justify-between text-gray-400">
                     <Gem/>
-                    <h2>5 Credits Left</h2>
+                    <h2>{createUser?.credits} Credits Left</h2>
                 </div>
                 <Button className="w-full mt-3">Buy More Credits</Button>
             </div>
