@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea';
-import { SparklesIcon } from 'lucide-react';
+import  axios  from 'axios';
+import { Loader2Icon, SparklesIcon } from 'lucide-react';
 import React, { useState } from 'react'
 
 const suggestions = [
@@ -21,6 +22,24 @@ const suggestions = [
 
 function Topic({onHandleForm}) {
     const [selected, setSelected] = useState()
+    const [script, setScript] = useState();
+    const [loading, setLoading] = useState(false);
+
+    const GenerateScript = async () => {
+        setLoading(true);
+        try {
+            console.log("Axios:", axios);
+
+            const result = await axios.post('/api/generate-script', {
+                topic: selected
+            })
+            console.log(result?.data);
+            setScript(result.data?.scripts);
+        } catch (error) {
+            console.log(error?.message)
+        }
+        setLoading(false);
+    }
   return (
     <div>
         <h2 className='mb-1'>Project Title</h2>
@@ -50,7 +69,7 @@ function Topic({onHandleForm}) {
 </Tabs>
 
         </div>
-    <Button className="mt-4"><SparklesIcon></SparklesIcon>Generate Script</Button>
+    <Button className="mt-4" disabled={loading} onClick={GenerateScript}>{loading ? <Loader2Icon className='animate-spin'/> : <SparklesIcon></SparklesIcon>}Generate Script</Button>
     </div>
   )
 }
