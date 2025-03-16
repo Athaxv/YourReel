@@ -24,8 +24,10 @@ function Topic({onHandleForm}) {
     const [selected, setSelected] = useState()
     const [script, setScript] = useState();
     const [loading, setLoading] = useState(false);
+    const [selectedScript, setSelectedScript] = useState();
 
     const GenerateScript = async () => {
+      setSelectedScript(null);
         setLoading(true);
         try {
             console.log("Axios:", axios);
@@ -67,6 +69,22 @@ function Topic({onHandleForm}) {
     </div>
   </TabsContent>
 </Tabs>
+{/* {console.log(script)} */}
+
+
+    {script?.length > 0 && 
+    <div className='mt-3'>
+    <h2>Select Your Script</h2>
+        <div className='grid grid-cols-2 gap-5'>
+            {script?.map((item, index) => (
+                <div className={`p-3 border rounded-lg mt-3 ${selectedScript==index ? 'bg-secondary' : ''}`} onClick={() => setSelectedScript(index)} key={index}>
+                    <h2 className='line-clamp-4 text-sm text-gray-300'>{item.content}</h2>
+                </div>
+            ))}
+        </div>
+        </div>
+    }
+
 
         </div>
     <Button className="mt-4" disabled={loading} onClick={GenerateScript}>{loading ? <Loader2Icon className='animate-spin'/> : <SparklesIcon></SparklesIcon>}Generate Script</Button>
