@@ -19,7 +19,7 @@ function CreateNewVideo() {
         <div className='grid grid-cols-1 md:grid-cols-3'>
             <div className='col-span-2 p-7 border rounded-xl'>
                 <Topic onHandleForm={onHandleForm}/>
-                <VideoStyle/>
+                <VideoStyle onHandleForm={onHandleForm}/>
             </div>
             <div>
 
