@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Topic from './_components/Topic'
 import VideoStyle from './_components/VideoStyle'
 import Voice from './_components/Voice'
+import Captions from './_components/Captions'
 
 function CreateNewVideo() {
     const [formData, setFormData] = useState()
@@ -22,6 +23,7 @@ function CreateNewVideo() {
                 <Topic onHandleForm={onHandleForm}/>
                 <VideoStyle onHandleForm={onHandleForm}/>
                 <Voice onHandleForm={onHandleForm}/>
+                <Captions onHandleForm={onHandleForm}/>
             </div>
             <div>
 
