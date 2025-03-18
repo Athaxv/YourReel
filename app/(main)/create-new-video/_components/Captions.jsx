@@ -34,8 +34,8 @@ function Captions({onHandleForm}) {
         <p className='text-sm text-gray-400 mb-2'>Selct your Caption Style</p>
         <div className='grid grid-cols-2 p-2 gap-2'>
             {options.map((cap, index) => (
-                <div key={index} className={`border rounded-md ${selectCaptions==cap.name ? 'bg-secondary' : ''} hover:bg-secondary`} onClick={() => {setSelectedCaptions(cap.name)
-                onHandleForm('Captions', cap.name)
+                <div key={index} className={`border rounded-md ${selectCaptions==cap.name ? 'bg-secondary' : ''} hover:bg-secondary cursor-pointer`} onClick={() => {setSelectedCaptions(cap.name)
+                onHandleForm("captions", cap)
                 }}>
                     <h2 className={cap.style}>{cap.name}</h2>
                 </div>
