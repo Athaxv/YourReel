@@ -77,7 +77,9 @@ function Topic({onHandleForm}) {
     <h2>Select Your Script</h2>
         <div className='grid grid-cols-2 gap-5'>
             {script?.map((item, index) => (
-                <div className={`p-3 border rounded-lg mt-3 ${selectedScript==index ? 'bg-secondary' : ''}`} onClick={() => setSelectedScript(index)} key={index}>
+                <div className={`p-3 border rounded-lg mt-3 ${selectedScript==index ? 'bg-secondary' : ''}`} onClick={() => {setSelectedScript(index)
+                  onHandleForm("script", item.content)}
+                } key={index}>
                     <h2 className='line-clamp-4 text-sm text-gray-300'>{item.content}</h2>
                 </div>
             ))}

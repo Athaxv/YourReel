@@ -7,6 +7,7 @@ import Captions from './_components/Captions'
 import { Button } from '@/components/ui/button'
 import { WandSparkles } from 'lucide-react'
 import Preview from './_components/Preview'
+import axios from 'axios'
 
 function CreateNewVideo() {
     const [formData, setFormData] = useState()
@@ -18,6 +19,19 @@ function CreateNewVideo() {
         }))
         console.log(formData)
     }
+
+    const GenerateVideo = async () => {
+        if (!formData.VideoStyle || !formData.captions || !formData.Topic || !formData.Voice || !formData.script){
+            console.log("error", "All fields are required")
+            return;
+        }
+        const result = await axios.post('/api/generate-video-data', {
+            ...formData
+        })
+
+        console.log(result)
+    }
+
   return (
     <div>
         <h2 className='text-3xl mb-4'>Create New Video</h2>
@@ -27,7 +41,7 @@ function CreateNewVideo() {
                 <VideoStyle onHandleForm={onHandleForm}/>
                 <Voice onHandleForm={onHandleForm}/>
                 <Captions onHandleForm={onHandleForm}/>
-                <Button className={'mt-4 w-full'}><WandSparkles></WandSparkles> Create Video</Button>
+                <Button className={'mt-4 w-full'} onClick={GenerateVideo}><WandSparkles></WandSparkles> Create Video</Button>
             </div>
             <div>
                 <Preview formData={formData}/>
