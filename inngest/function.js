@@ -111,13 +111,13 @@ export const GenerateVideoData = inngest.createFunction(
       async () => {
         const result = await convex.mutation(api.videoData.UpdateVideoRecord, {
           recordId: recordId,
-          audioUrl: '',
-          captionJson: [],
-          images: []
+          audioUrl: GenerateAudioFile,
+          captionJson: GenerateCaption,
+          images: GenerateImages
         })
         return result
       }
     )
-    return GenerateImages;
+    return 'Reel created successfully';
   }
 )
