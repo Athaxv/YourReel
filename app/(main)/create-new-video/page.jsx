@@ -5,13 +5,15 @@ import VideoStyle from './_components/VideoStyle'
 import Voice from './_components/Voice'
 import Captions from './_components/Captions'
 import { Button } from '@/components/ui/button'
-import { WandSparkles } from 'lucide-react'
+import { Loader2Icon, WandSparkles } from 'lucide-react'
 import Preview from './_components/Preview'
 import axios from 'axios'
+import { useMutation } from 'convex/react'
 
 function CreateNewVideo() {
     const [formData, setFormData] = useState()
-
+    const [loading, setLoading] = useState(false);
+    const createInitialVideoRecord = useMutation(api.videoData.createVideoData)
     const onHandleForm = (fieldName, fieldValue) => {
         setFormData(prev => ({
             ...prev,
@@ -21,15 +23,28 @@ function CreateNewVideo() {
     }
 
     const GenerateVideo = async () => {
-        if (!formData.VideoStyle || !formData.captions || !formData.Topic || !formData.Voice || !formData.script){
+        if (!formData.ImageStyle || !formData.captions || !formData.Topic || !formData.Voice || !formData.script || !formData.Title){
             console.log("error", "All fields are required")
             return;
         }
+        setLoading(true);
+        const resp = await createInitialVideoRecord({
+            title: formData.Title,
+            topic: formData.Topic,
+            script: formData.script,
+            VideoStyle: formData.ImageStyle,
+            caption: formData.caption,
+            voice: formData.Voice,
+            uid: user?._id,
+            createdBy: user?.email
+        })
+        console.log(resp)
         const result = await axios.post('/api/generate-video-data', {
             ...formData
         })
 
         console.log(result)
+        setLoading(false)
     }
 
   return (
@@ -41,7 +56,7 @@ function CreateNewVideo() {
                 <VideoStyle onHandleForm={onHandleForm}/>
                 <Voice onHandleForm={onHandleForm}/>
                 <Captions onHandleForm={onHandleForm}/>
-                <Button className={'mt-4 w-full'} onClick={GenerateVideo}><WandSparkles></WandSparkles> Create Video</Button>
+                <Button disabled={loading} className={'mt-4 w-full'} onClick={GenerateVideo}>{loading ? <Loader2Icon className='animate-spin'/> : <WandSparkles></WandSparkles> } Create Video</Button>
             </div>
             <div>
                 <Preview formData={formData}/>
