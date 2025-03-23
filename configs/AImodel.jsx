@@ -61,6 +61,63 @@ const {
         },
       ],
     });
+
+    export const GenerateImageScript = model.startChat({
+      generationConfig,
+      history: [
+        {
+          role: "user",
+          parts: [
+            {text: "Generate Image prompt of {style} style with all the details for 30 seconds video : script: {script}\n- Just give specifying Image prompt which depends on the story line\n- do not give camera angle image prompt\n- follow the following schema and return JSON data (max 6 -7 images)\n- [\n  {\n    imagePrompt: '',\n    sceneContent: '<script Content>'\n  }\n]"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "I am able to interact with images (e.g. describing or analysing them), but I am unable to generate or edit pixel-based images myself. This capability is only enabled for the \"Gemini 2.0 Flash Experimental\" model when the selected output format is \"Images and text\". However, I can provide you with the JSON data containing image prompts based on your script and style. Please provide the script and style so I can proceed.\n"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "just generate a scipt\n"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "Okay, here's a script example, and then I'll need you to give me a style so I can generate the image prompts as requested.\n\n**Script:**\n\n**Title:** The Lost Kitten\n\n**(Scene 1)**\n\n**INT. COZY LIVING ROOM - DAY**\n\nSOUND of gentle rain pattering against the window\n\nA little girl, LILLY (6), sits on the rug, drawing with crayons. She has bright eyes and a cheerful demeanor.\n\nLILLY\n(Humming to herself)\n\n**(Scene 2)**\n\n**EXT. GARDEN - DAY**\n\nLilly opens the back door and steps into the garden. The rain has stopped, leaving everything sparkling. She spots a tiny KITTEN, shivering under a rose bush.\n\nLILLY\n(Gasps)\nOh, you poor thing!\n\n**(Scene 3)**\n\n**EXT. GARDEN - CONTINUOUS**\n\nLilly carefully approaches the kitten, extending a hand. The kitten is hesitant but eventually allows Lilly to pet it.\n\nLILLY\nIt's okay, little one. I won't hurt you.\n\n**(Scene 4)**\n\n**INT. COZY LIVING ROOM - LATER**\n\nLilly holds the kitten, wrapped in a soft towel. She feeds it milk from a small dish. The kitten laps it up eagerly.\n\nLILLY\n(Smiling)\nYou're safe now.\n\n**(Scene 5)**\n\n**INT. COZY LIVING ROOM - NIGHT**\n\nLilly and the kitten are snuggled together on the rug, both asleep. A warm light fills the room.\n\n**(Scene 6)**\n\n**EXT. GARDEN - DAY**\n\nLilly plays with the kitten in the garden. Both are happy and carefree.\n\nNow, please provide the desired **style** for the images (e.g., Pixar, watercolor, photorealistic, anime, etc.).  Once I have that, I can give you the JSON with the image prompts.\n"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "Generate Image prompt of {style} style with all the details for 30 seconds video : script: \" Fast cuts of various landscapes: mountains, ocean, desert. Voiceover: \"Are you tired of the ordinary? The predictable?\" People shown doing adventurous activities: rock climbing, kayaking, skydiving.  Voiceover: \"There's a world waiting to be explored. A life waiting to be lived to the fullest.\"  Text on screen: \"Go Beyond.\"\"\n- Just give specifying Image prompt which depends on the story line\n- do not give camera angle image prompt\n- follow the following schema and return JSON data (max 6 -7 images)\n- [\n  {\n    imagePrompt: '',\n    sceneContent: '<script Content>'\n  }\n]"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "Okay, I can generate the JSON data with image prompts, but I need a style. Please provide the desired **style** for the images (e.g., Pixar, watercolor, photorealistic, anime, etc.). Once I have that, I can give you the JSON with the image prompts.\n"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "anime"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "```json\n[\n  {\n    \"imagePrompt\": \"Vast, snow-capped mountain range under a vibrant blue sky with fluffy anime-style clouds. Jagged peaks and deep valleys suggest a sense of untamed wilderness. A single, determined climber is visible far below, adding a sense of scale and adventure. Anime art style, bright colors, detailed background.\",\n    \"sceneContent\": \"Fast cuts of various landscapes: mountains\"\n  },\n  {\n    \"imagePrompt\": \"Turquoise ocean waves crashing against rocky cliffs. The sun is setting, casting a warm, orange glow on the water and the rocks. Surfers are riding the waves, silhouetted against the light. Anime art style, dynamic composition, vibrant colors, motion blur.\",\n    \"sceneContent\": \"Fast cuts of various landscapes: ocean\"\n  },\n  {\n    \"imagePrompt\": \"Arid desert landscape with towering sand dunes. The sun beats down relentlessly, creating shimmering mirages in the distance. A lone figure, clad in protective clothing, walks across the dunes, their silhouette stark against the orange sand. Anime art style, warm color palette, sense of isolation.\",\n    \"sceneContent\": \"Fast cuts of various landscapes: desert\"\n  },\n  {\n    \"imagePrompt\": \"Extreme close-up on a climber's hands, gripping a rough rock face. Intense determination etched on their face. The surrounding rocks are blurred, emphasizing the focus and effort. Anime art style, dramatic lighting, high contrast, dynamic composition.\",\n    \"sceneContent\": \"People shown doing adventurous activities: rock climbing\"\n  },\n  {\n    \"imagePrompt\": \"Kayaker paddling through a raging river, surrounded by lush, green rainforest. The water is churning and frothy, and the kayaker is navigating the rapids with skill and determination. Anime art style, dynamic perspective, vibrant colors, sense of adventure.\",\n    \"sceneContent\": \"People shown doing adventurous activities: kayaking\"\n  },\n  {\n    \"imagePrompt\": \"Skydiver soaring through the air with arms outstretched, a huge smile on their face. Below them, the earth stretches out like a patchwork quilt. Blue sky and fluffy clouds surround them. Anime art style, sense of freedom, bright colors, dynamic composition.\",\n    \"sceneContent\": \"People shown doing adventurous activities: skydiving\"\n  },\n  {\n    \"imagePrompt\": \"Simple, clean white text \\\"Go Beyond.\\\" on a background of swirling anime-style clouds in shades of blue and purple. The font is modern and bold, conveying a sense of possibility and adventure.\",\n    \"sceneContent\": \"Text on screen: \\\"Go Beyond.\\\"\"\n  }\n]\n```\n"},
+          ],
+        },
+      ],
+    });
+  
+    const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
+    console.log(result.response.text());
   
     // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
     // console.log(result.response.text());
