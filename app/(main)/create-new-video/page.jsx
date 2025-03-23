@@ -40,7 +40,8 @@ function CreateNewVideo() {
         })
         console.log(resp)
         const result = await axios.post('/api/generate-video-data', {
-            ...formData
+            ...formData,
+            recordId: resp
         })
 
         console.log(result)
